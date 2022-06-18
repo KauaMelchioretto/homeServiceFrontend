@@ -108,7 +108,7 @@ export default function InitScreen() {
           </button>
           <button
             id="fast-button-search"
-            onClick={() => SearchServicesVoid("Eletrecista")}
+            onClick={() => SearchServicesVoid("Eletricista")}
             to="/resultados"
           >
             Eletricista
