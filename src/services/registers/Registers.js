@@ -6,7 +6,6 @@ var httpAgent = Axios.create({
     "Content-Type": "application/json",
     Accept: "application/json",
   },
-  withCredentials: true,
 });
 httpAgent.defaults.withCredentials = true;
 

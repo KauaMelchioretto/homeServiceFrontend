@@ -3,6 +3,7 @@ import Axios from "axios";
 var httpAgent = Axios.create({
     baseURL: process.env.REACT_APP_API_URL ,
 });
+httpAgent.defaults.withCredentials = true;
 
 export async function editService(id, name, profession, city, city2, numberTel, description) {
     const result =
