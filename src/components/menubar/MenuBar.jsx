@@ -5,11 +5,11 @@ import { useAuth } from "../../hooks/auth";
 import axios from "axios";
 import "./MenuBar.css";
 
-axios.defaults.withCredentials = true;
-
 var httpAgent = axios.create({
   baseURL: process.env.REACT_APP_API_URL ,
 });
+
+httpAgent.defaults.withCredentials = true;
 
 export default function MenuBar() {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ export default function MenuBar() {
   //Realize login to stay session.
   useEffect(async () => {
     if (auth.user == null) {
-      cookieToken = await axios.get("/getcookie");
+      cookieToken = await httpAgent.get("/getcookie");
       const data = JSON.stringify(cookieToken.data.token);
       if (cookieToken.data.token != undefined) {
         token = data.replace(/[{}"]/g, "");

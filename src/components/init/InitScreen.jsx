@@ -6,7 +6,6 @@ import MenuBar from "../menubar/MenuBar";
 import * as JSURL from "jsurl";
 import { useSelector } from "react-redux";
 import { getUserName } from "../../services/registers/Registers";
-import { login } from "../../services/login";
 
 export default function InitScreen() {
   const [values, setValues] = useState({});
@@ -19,9 +18,12 @@ export default function InitScreen() {
       },
     }) => token
   );
+  
   var httpAgent = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
   });
+
+  httpAgent.defaults.withCredentials = true;
 
   const handleChangeValues = (value) => {
     setValues((prevValue) => ({
