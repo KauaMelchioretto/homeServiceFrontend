@@ -28,7 +28,7 @@ export default function ResultScreen() {
               name={value.name}
               profession={value.profession}
               city={value.city}
-              city2={value.city}
+              city2={value.city2}
               numberTel={value.numberTel}
               description={value.description}
             ></CardResult>
