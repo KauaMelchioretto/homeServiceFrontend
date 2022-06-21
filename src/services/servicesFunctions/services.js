@@ -20,10 +20,14 @@ export async function editService(id, name, profession, city, city2, numberTel, 
 
 export async function deleteService(id) {
     const result =
-    await httpAgent.delete(`/deleteService/${id}`);
+    await httpAgent.post("/deleteService", {
+        id,
+    }); return result;
 }
 
 export async function deleteAvaliationService(id) {
     const result = 
-    await httpAgent.delete(`/deleteAvaliation/${id}`);
+    await httpAgent.post("/deleteAvaliation", {
+        id,
+    }); return result;
 }

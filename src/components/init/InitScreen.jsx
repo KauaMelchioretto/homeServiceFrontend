@@ -84,7 +84,7 @@ export default function InitScreen() {
             id="information"
             name="information"
             type="textfield"
-            placeholder="Pesquise aqui!"
+            placeholder="Pesquise serviços aqui!"
             maxLength={100}
             onChange={handleChangeValues}
             onKeyDown={handleKeyDown}
