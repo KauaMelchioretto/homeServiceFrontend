@@ -7,7 +7,13 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 export default function RegisterServiceScreen() {
-  const token = useSelector(({rootReducer: {login : {token}}}) => token);
+  const token = useSelector(
+    ({
+      rootReducer: {
+        login: { token },
+      },
+    }) => token
+  );
   const [listServices, setListServices] = useState();
   const [showServices, setShowServices] = useState(false);
   const [values, setValues] = useState({
@@ -21,8 +27,8 @@ export default function RegisterServiceScreen() {
   });
 
   var httpAgent = axios.create({
-    baseURL: process.env.REACT_APP_API_URL ,
-});
+    baseURL: process.env.REACT_APP_API_URL,
+  });
 
   httpAgent.defaults.withCredentials = true;
 
@@ -51,8 +57,8 @@ export default function RegisterServiceScreen() {
         numberTel,
         description
       );
-     clearInputs();
-     window.alert("Serviço cadastrado com sucesso!");
+      clearInputs();
+      window.alert("Serviço cadastrado com sucesso!");
     }
   };
 
@@ -89,17 +95,22 @@ export default function RegisterServiceScreen() {
     });
   };
 
-  
   useEffect(async () => {
     const cookieToken = await httpAgent.get("/getcookie");
-    await httpAgent.post("/getCards", {
-      userToken : cookieToken.data.token != undefined ? cookieToken.data.token : token,
-    }).then((response) => {
-      setListServices(response.data);
-      setShowServices(true);
-    });
+    if (cookieToken != undefined) {
+      await httpAgent
+        .post("/getCards", {
+          userToken:
+            cookieToken.data.token != undefined
+              ? cookieToken.data.token
+              : token,
+        })
+        .then((response) => {
+          setListServices(response.data);
+          setShowServices(true);
+        });
+    }
   }, [listServices]);
-
 
   return (
     <div>
