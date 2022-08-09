@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAuth } from "../../hooks/auth";
@@ -28,9 +28,8 @@ export default function MenuBar() {
     auth.logout(token);
     navigate("/inicio");
   };
-  
-  //Realize login to stay session.
-  useEffect(async () => {
+
+  const loginSession = async() => {
     if (auth.user == null) {
       cookieToken = await httpAgent.get("/getcookie");
       const data = JSON.stringify(cookieToken.data.token);
@@ -39,10 +38,11 @@ export default function MenuBar() {
         auth.login(token);
       }
     }
-  });
+  }
 
   const withoutAuthentication = (
     <ul>
+      {loginSession()}
       <li>
         <button onClick={() => navigate("/inicio")} id="menu--items">
           Home
@@ -58,6 +58,7 @@ export default function MenuBar() {
 
   const withAuthentication = (
     <ul>
+       {loginSession()}
       <li>
         <button onClick={() => navigate("/inicio")} id="menu--items">
           Home

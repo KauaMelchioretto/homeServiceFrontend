@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { React, useState } from "react";
 import "./RegisterServiceScreen.css";
 import CardRegister from "../cards/CardRegister";
 import MenuBar from "../menubar/MenuBar";
@@ -38,6 +38,7 @@ export default function RegisterServiceScreen() {
       [value.target.name]: value.target.value,
     }));
   };
+
   const handleClickRegisterService = async () => {
     if (validation(values)) {
       const userToken = token;
@@ -58,6 +59,7 @@ export default function RegisterServiceScreen() {
         description
       );
       clearInputs();
+      updateRegisteredServices();
       window.alert("Serviço cadastrado com sucesso!");
     }
   };
@@ -95,7 +97,7 @@ export default function RegisterServiceScreen() {
     });
   };
 
-  useEffect(async () => {
+  const updateRegisteredServices = async() => {
     const cookieToken = await httpAgent.get("/getcookie");
     if (cookieToken != undefined) {
       await httpAgent
@@ -110,7 +112,7 @@ export default function RegisterServiceScreen() {
           setShowServices(true);
         });
     }
-  }, [listServices]);
+  }
 
   return (
     <div>

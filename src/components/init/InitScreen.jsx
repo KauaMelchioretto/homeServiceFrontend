@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import { useNavigate } from "react-router";
 import "./InitScreen.css";
 import axios from "axios";
@@ -64,16 +64,17 @@ export default function InitScreen() {
     }
   };
 
-  useEffect(async () => {
+  const setUserName = async() => {
     if (token != undefined) {
       var username = await getUserName(token);
       setUser(username);
     } else setUser("");
-  });
+  }
 
   {
     return (
       <div className="container">
+        {setUserName()}
         <MenuBar></MenuBar>
         <header className="header--container">
           <h1 className="title">Home Service</h1>
