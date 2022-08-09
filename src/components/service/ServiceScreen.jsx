@@ -59,6 +59,8 @@ export default function ServiceScreen() {
       const avaliation = value;
       userToken != undefined ?  await registerAvaliation(idService, userToken, comment, avaliation) : window.alert("Faça login para registrar uma avaliação!");
       clearAvaliations();
+      window.alert("Avaliado com sucesso!");
+      updateAvaliationsComments();
       }
     } else window.alert("Faça login para registrar uma avaliação!");
   }
