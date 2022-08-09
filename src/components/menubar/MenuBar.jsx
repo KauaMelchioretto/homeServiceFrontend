@@ -29,7 +29,7 @@ export default function MenuBar() {
     navigate("/inicio");
   };
   
-  //Realize login to stay session.
+  //Realize login to stay session
   useEffect(async () => {
     if (auth.user == null) {
       cookieToken = await httpAgent.get("/getcookie");
