@@ -38,7 +38,7 @@ export default function MenuBar() {
         auth.login(token);
       }
     }
-  }
+  });
 
   const withoutAuthentication = (
     <ul>
