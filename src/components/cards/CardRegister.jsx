@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FormDialog from "../dialog/dialog";
 import "./CardRegister.css";
 
-export default function Card(propsCard) {
+export default function CardRegister(propsCard) {
   const [open, setOpen] = useState(false);
 
   const handleClickCard = () => {

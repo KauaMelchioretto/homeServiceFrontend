@@ -31,3 +31,10 @@ export async function deleteAvaliationService(id) {
         id,
     }); return result;
 }
+
+export async function getRegisteredServices(userToken) {
+    const result = 
+    await httpAgent.post(`/getCards`, {
+        userToken
+    }); return result.data;
+}

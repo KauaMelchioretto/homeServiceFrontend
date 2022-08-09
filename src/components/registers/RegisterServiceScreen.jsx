@@ -3,6 +3,7 @@ import "./RegisterServiceScreen.css";
 import CardRegister from "../cards/CardRegister";
 import MenuBar from "../menubar/MenuBar";
 import { registerService } from "../../services/registers/Registers";
+import { getRegisteredServices } from "../../services/servicesFunctions/services";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
@@ -39,6 +40,7 @@ export default function RegisterServiceScreen() {
       [value.target.name]: value.target.value,
     }));
   };
+
   const handleClickRegisterService = async () => {
     if (validation(values)) {
       const userToken = token;
@@ -97,21 +99,15 @@ export default function RegisterServiceScreen() {
   };
 
   useEffect(async () => {
+    updateRegisteredServices();
+  }, []);
+
+  async function updateRegisteredServices() {
     const cookieToken = await httpAgent.get("/getcookie");
-    if (cookieToken != undefined) {
-      await httpAgent
-        .post("/getCards", {
-          userToken:
-            cookieToken.data.token != undefined
-              ? cookieToken.data.token
-              : token,
-        })
-        .then((response) => {
-          setListServices(response.data);
-          setShowServices(true);
-        });
-    }
-  }, [listServices]);
+    const result = await getRegisteredServices(cookieToken.data.token != undefined ? cookieToken.data.token : token);
+    setListServices(result);
+    setShowServices(true);
+  };
 
   return (
     <div>
@@ -224,7 +220,7 @@ export default function RegisterServiceScreen() {
               <CardRegister
                 key={values.id}
                 listCard={listServices}
-                setListServices={setListServices}
+                setListCard={setListServices}
                 id={values.idservice}
                 name={values.name}
                 profession={values.profession}

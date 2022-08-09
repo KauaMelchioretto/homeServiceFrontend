@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./ServiceScreen.css";
-import { NavLink } from "react-router-dom";
 import { Rating } from "primereact/rating";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
@@ -44,13 +43,12 @@ export default function ServiceScreen() {
     baseURL: process.env.REACT_APP_API_URL ,
 });
 
-
   useEffect(async () => {
     cookieToken = await httpAgent.get("/getcookie");
     const data = JSON.stringify(cookieToken.data.token);
     if(cookieToken.data.token != undefined) {
     token = data.replace(/[{}"]/g, '');
-   }}); 
+   }}, []); 
 
   const handleClickAvaliation = async () => {
     if(token != undefined && auth.user != null) {
@@ -77,12 +75,16 @@ export default function ServiceScreen() {
   }
 
   useEffect(() => {
+    updateAvaliationsComments();
+  }, []);
+
+  const updateAvaliationsComments = async() => {
     httpAgent.post("/getAvaliations", {
       idService: details.id,
     }).then((response) => {
       setListAvaliations(response.data);
     });
-  }, [listAvaliations]);
+  } 
 
   return (
     <div className="main--container">

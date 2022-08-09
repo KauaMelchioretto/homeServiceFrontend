@@ -11,8 +11,13 @@ import {
   deleteService,
   editService,
 } from "../../services/servicesFunctions/services";
+import axios from "axios";
+import { getRegisteredServices } from "../../services/servicesFunctions/services";
+import { useSelector } from "react-redux";
 
 export default function FormDialog(props) {
+  const token = useSelector(({rootReducer: {login: { token },},}) => token);
+
   const [editValues, setEditValues] = useState({
     id: props.id,
     name: props.name,
@@ -22,6 +27,12 @@ export default function FormDialog(props) {
     numberTel: props.numberTel,
     description: props.description,
   });
+  
+  axios.defaults.withCredentials = true;
+  var httpAgent = axios.create({
+    baseURL: process.env.REACT_APP_API_URL ,
+  });
+
   const handleChangeValues = (value) => {
     setEditValues((prevValue) => ({
       ...prevValue,
@@ -79,20 +90,12 @@ export default function FormDialog(props) {
     }
   };
 
-  const listingCard = () => {
-      props.listCard.map((value) => {
-        return value.id == editValues.id
-          ? {
-              id: editValues.id,
-              name: editValues.name,
-              profession: editValues.profession,
-              city: editValues.city,
-              city2: editValues.city2,
-              numberTel: editValues.numberTel,
-              description: editValues.description,
-            }
-          : value;
-      })
+  const listingCard = async () => {
+    const cookieToken = await httpAgent.get("/getcookie");
+    const resultServices = await getRegisteredServices(
+      cookieToken.data.token != undefined ? cookieToken.data.token : token
+    );
+    props.setListCard(resultServices);
   };
 
   const handleDeleteService = async () => {
@@ -101,11 +104,7 @@ export default function FormDialog(props) {
     if (avaliationResult == undefined && serviceResult == undefined) {
       window.alert("Serviço excluído com sucesso!");
       handleClose();
-      props.setListCard(
-        props.listCard.filter((value) => {
-          return value.id != editValues.id;
-        })
-      );
+      listingCard();
     }
   };
 

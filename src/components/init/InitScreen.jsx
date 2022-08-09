@@ -69,7 +69,7 @@ export default function InitScreen() {
       var username = await getUserName(token);
       setUser(username);
     } else setUser("");
-  });
+  }, [token]);
 
   {
     return (
