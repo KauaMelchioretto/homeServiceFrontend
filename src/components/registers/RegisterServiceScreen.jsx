@@ -61,6 +61,7 @@ export default function RegisterServiceScreen() {
         description
       );
       clearInputs();
+      updateRegisteredServices();
       window.alert("Serviço cadastrado com sucesso!");
     }
   };
