@@ -101,8 +101,7 @@ export default function FormDialog(props) {
   const handleDeleteService = async () => {
     const avaliationResult = await deleteAvaliationService(editValues.id);
     const serviceResult = await deleteService(editValues.id);
-    console.log(serviceResult);
-    if (avaliationResult == undefined && serviceResult == undefined) {
+    if (avaliationResult != undefined && serviceResult != undefined) {
       window.alert("Serviço excluído com sucesso!");
       handleClose();
       listingCard();
