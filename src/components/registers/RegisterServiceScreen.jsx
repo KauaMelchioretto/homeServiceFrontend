@@ -14,6 +14,7 @@ export default function RegisterServiceScreen() {
       },
     }) => token
   );
+  
   const [listServices, setListServices] = useState();
   const [showServices, setShowServices] = useState(false);
   const [values, setValues] = useState({
