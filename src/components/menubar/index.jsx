@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAuth } from "../../hooks/auth";
 import axios from "axios";
-import "./MenuBar.css";
+import "./index.css";
 
 var httpAgent = axios.create({
   baseURL: process.env.REACT_APP_API_URL ,

@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import MenuBar from "../menubar/MenuBar";
-import { NavLink, useNavigate } from "react-router-dom";
-import { login } from "../../services/login"
+import MenuBar from "../menubar/index.jsx";
+import { NavLink } from "react-router-dom";
+import { login } from "../../services/login";
+import "../registers/Forms.css";
+import { Button } from "primereact/button";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import "primereact/resources/themes/lara-light-blue/theme.css";
 import "../registers/Forms.css";
 
 export default function Singin({ callback }) {
@@ -12,7 +17,7 @@ export default function Singin({ callback }) {
     const password = values.password;
     const token = await login(email, password);
     callback(token);
-  }
+  };
 
   const changeValues = (value) => {
     setValues((prevValue) => ({
@@ -32,10 +37,10 @@ export default function Singin({ callback }) {
       <MenuBar />
       <header className="header--container">
         <h1>Home Serivce</h1>
-        <h2>Login</h2>
       </header>
       <section className="userForm--section">
         <form>
+          <h2>Login</h2>
           <label htmlFor="email">E-mail</label>
           <div>
             <input
@@ -61,15 +66,21 @@ export default function Singin({ callback }) {
               className="input--field"
             />
           </div>
-          <NavLink to="/registroUsuario">Registrar-se</NavLink>
-          <div className="buttons">
-            <button
-              className="custom--button"
-              type="button"
+          <div className="login--buttons">
+            <Button
               onClick={() => handleClickLogin()}
-            >
-              Login
-            </button>
+              label="Login"
+              className="p-button-raised p-button-rounded"
+            />
+            <div className="elements">
+              <div>
+              <NavLink to="/loginTest">New Login screen</NavLink>
+                <NavLink to="/">Esqueci a senha</NavLink>
+              </div>
+              <div>
+                <NavLink to="/registroUsuario">Registrar-se</NavLink>
+              </div>
+            </div>
           </div>
         </form>
       </section>

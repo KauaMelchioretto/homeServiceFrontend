@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./RegisterServiceScreen.css";
 import CardRegister from "../cards/CardRegister";
-import MenuBar from "../menubar/MenuBar";
+import MenuBar from "../menubar/index.jsx";
 import { registerService } from "../../services/registers/Registers";
 import { getRegisteredServices } from "../../services/servicesFunctions/services";
 import { useSelector } from "react-redux";

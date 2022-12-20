@@ -2,7 +2,7 @@ import { React } from "react";
 import "./ResultScreen.css";
 import CardResult from "../cards/CardResult";
 import useQueryParam from "../../hooks/useQueryParam";
-import MenuBar from "../menubar/MenuBar";
+import MenuBar from "../menubar/index.jsx";
 
 export default function ResultScreen() {
 

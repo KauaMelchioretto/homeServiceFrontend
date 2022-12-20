@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MenuBar from "../menubar/MenuBar";
+import MenuBar from "../menubar/index.jsx";
 import "./Forms.css";
 import { registerUser, verifyUserEmail } from "../../services/registers/Registers";
 export default function UserRegister() {

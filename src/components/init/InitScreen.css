@@ -1,15 +1,28 @@
-.container{
+@import url("https://fonts.googleapis.com/css2?family=Bungee&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+body {
+  min-width: 390px;
+}
+
+.container {
   display: block;
 }
 
-.header--container {
+.txt-rotate > .wrap {
+  border-right: 0.08em solid #666;
+}
+
+.div--container {
   text-align: center;
   flex-wrap: wrap;
 }
 
 .title {
   font-size: 40px;
+  font-weight: 400;
   padding: 10px 20px;
+  font-family: "Bungee", cursive;
 }
 
 .search--input {
@@ -26,7 +39,7 @@
 .search--icon {
   position: absolute;
   left: 77%;
-  top: 33.5%;
+  margin-top: 0.4%;
   padding: 15px;
   background-image: url(../../img/search_icon.svg);
   background-repeat: no-repeat;
@@ -49,7 +62,7 @@
 }
 
 .custom--button:hover {
-  background-color:#8a2be2;
+  background-color: #8a2be2;
 }
 
 .input--field {
@@ -60,6 +73,7 @@
   left: 20vw;
   background-color: #ffffff;
   width: 61%;
+  height: 10em;
   top: 25vh;
   border-radius: 20px;
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
@@ -68,6 +82,13 @@
   display: table;
   padding: none;
   text-align: center;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../img//home-service-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
 }
 
 #fast-button-search {
@@ -96,6 +117,12 @@
   cursor: pointer;
 }
 
-  body{
-    min-width: 390px;
-  }
+.seatch--elements {
+  position: absolute;
+  width: 100%;
+}
+
+.container h2 {
+  font-weight: bold;
+  font-size: 28px;
+}

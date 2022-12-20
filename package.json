@@ -9,10 +9,11 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
+    "formik": "^2.2.9",
     "jsurl": "^0.1.5",
     "latest-version": "^6.0.0",
     "primeicons": "^5.0.0",
-    "primereact": "^8.0.0-rc.1",
+    "primereact": "^8.7.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^8.0.2",
@@ -27,13 +28,12 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "start": "serve -s build",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build"
-    },
-
+  },
   "eslintConfig": {
     "extends": [
       "react-app",

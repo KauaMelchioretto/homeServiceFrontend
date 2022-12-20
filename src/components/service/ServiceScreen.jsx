@@ -5,7 +5,7 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import useQueryParam from "../../hooks/useQueryParam";
 import CardService from "../cards/CardService";
-import MenuBar from "../menubar/MenuBar";
+import MenuBar from "../menubar/index.jsx";
 import CardAvaliation from "../cards/CardAvaliation";
 import { registerAvaliation } from "../../services/registers/Registers";
 import { useSelector } from "react-redux";

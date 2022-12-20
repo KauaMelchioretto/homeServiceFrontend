@@ -48,12 +48,7 @@ form textarea {
   border-radius: 10px;
 }
 
-form input:focus,
-form textarea:focus {
-  background-color: #c79cf0;
-}
-
-.buttons {
+.login--buttons {
   flex-wrap: nowrap;
   display: inline;
   position: relative;
