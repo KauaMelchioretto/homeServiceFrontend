@@ -1,0 +1,35 @@
+.elements {
+  position: relative;
+  display: table;
+  width: 100%;
+  border-spacing: 5px 0;
+  padding-left: 1em;
+}
+
+.elements div {
+  display: table-cell;
+  padding: 1em;
+  text-align: center;
+}
+
+.elements .link {
+ font-size: 15px;
+}
+
+.p-inputtext {
+  background-color: rgb(29, 28, 28);
+  color: white;
+}
+
+.field label {
+  color: rgb(146, 141, 141);
+}
+
+.elements .link {
+  color: rgb(0, 89, 255);
+  text-decoration: none;
+}
+
+.fragment {
+  background-color: rgb(146, 141, 141);
+}

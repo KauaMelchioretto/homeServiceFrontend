@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import MenuBar from "../menubar/index.jsx";
 import { NavLink } from "react-router-dom";
 import { login } from "../../services/login";
-import "../registers/Forms.css";
 import { Button } from "primereact/button";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "primereact/resources/themes/lara-light-blue/theme.css";
-import "../registers/Forms.css";
 
 export default function Singin({ callback }) {
   const [values, setValues] = useState({});

@@ -7,8 +7,8 @@
   height: 60px;
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
     /* From https://css.glass */
-    background: rgb(247, 247, 247);
-    border-radius: 16px;
+    background: rgb(70, 67, 67);
+    border-radius: 15px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
@@ -29,16 +29,16 @@ nav ul li {
 
 #menu--items {
   text-decoration: none;
-  color: rgb(112, 109, 109);
+  color: rgb(201, 200, 200);
   border: none;
   font-size: 18px;
   font-family: "Open Sans", sans-serif;
   font-weight: bold;
-  background-color: rgb(247, 247, 247);
+  background-color: rgb(70, 67, 67);
 }
 
 #menu--items:hover {
-  color: #000000;
+  color: #ffffff;
   cursor: pointer;
   font-weight: bolder;
 }

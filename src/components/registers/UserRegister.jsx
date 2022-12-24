@@ -1,9 +1,20 @@
 import React, { useState } from "react";
+import { useFormik } from "formik";
 import MenuBar from "../menubar/index.jsx";
-import "./Forms.css";
-import { registerUser, verifyUserEmail } from "../../services/registers/Registers";
+import "../Forms.css";
+import { InputText } from "primereact/inputtext";
+import { Button } from "primereact/button";
+import { classNames } from "primereact/utils";
+import {
+  registerUser,
+  verifyUserEmail,
+} from "../../services/registers/Registers";
+import { Password } from "primereact/password";
+
 export default function UserRegister() {
   const [values, setValues] = useState({});
+  const [showMessage, setShowMessage] = useState(false);
+  const [formData, setFormData] = useState({});
 
   const changeValues = (value) => {
     setValues((prevValue) => ({
@@ -13,23 +24,25 @@ export default function UserRegister() {
   };
 
   const handleClickRegisterUser = async () => {
-    if(validation(values)){
-    const userName = values.userName;
-    const email = values.email;
-    const password = values.password;
-    const verify =  await verifyUserEmail(email);
-    verify == false ? window.alert("Email já cadastrado!") : await registerUser(userName, email, password); 
-     clearInputs();
+    var formikResponse = formik.errors;
+    if (Object.keys(formikResponse).length === 0) {
+      const userName = values.userName;
+      const email = values.email;
+      const password = values.password;
+      const verify = await verifyUserEmail(email);
+      verify == false
+        ? window.alert("Email já cadastrado!")
+        : await registerUser(userName, email, password);
+      clearInputs();
     }
-  }
 
- const clearInputs = () => {
-    setValues({
-      userName: "",
-      email: "",
-      password: "",
-      passwordConfirmation: "",
-    });
+    const getSuccessfulRegisteredMessage = (name) => {
+      return isFormFieldValid(name) && <small>{name}</small>;
+    };
+  };
+
+  const clearInputs = () => {
+    formik.resetForm();
   };
 
   const handleKeyDown = (e) => {
@@ -38,98 +51,185 @@ export default function UserRegister() {
     }
   };
 
-  const validation = () => {
-    var message = "";
-    if (values.userName == "") {
-      message += "Insira um nome de usuário!\n";
-    }
-    if (values.email == "") {
-      message += "Insira um e-mail para cadastro!\n";
-    }
-    if (values.password == "") {
-      message += "Insira uma senha para cadastro!\n";
-    }
-    if (values.passwordConfirmation != values.password) {
-      message += "As senhas não correspondem!\n";
-    }
-    if (message != "") {
-      window.alert(message);
-      return false;
-    }
-    return true;
+  const isFormFieldValid = (name) =>
+    !!(formik.touched[name] && formik.errors[name]);
+  const getFormErrorMessage = (name) => {
+    return (
+      isFormFieldValid(name) && (
+        <small className="p-error">{formik.errors[name]}</small>
+      )
+    );
   };
 
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+
+    validate: (data) => {
+      let errors = {};
+
+      if (!data.name) {
+        errors.name = "Name is required.";
+      }
+
+      if (!data.email) {
+        errors.email = "Email is required.";
+      } else if (
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)
+      ) {
+        errors.email = "Invalid email address. E.g. example@email.com";
+      }
+
+      if (!data.password) {
+        errors.password = "Password is required.";
+      }
+
+      if (!data.confirmPassword) {
+        errors.confirmPassword = "Confirm password is required.";
+      } else if (data.password != data.confirmPassword) {
+        errors.confirmPassword = "Confirm password is different than Password";
+      }
+
+      return errors;
+    },
+    onSubmit: (data) => {
+      setFormData(data);
+      setShowMessage(true);
+
+      formik.resetForm();
+    },
+  });
+
   return (
-    <div>
+    <div className="form--section">
       <MenuBar />
-      <header className="header--container">
+      <div className="title--container">
         <h1>Home Service</h1>
         <h2>Registre sua conta aqui!</h2>
-      </header>
-      <section className="userForm--section">
-        <form>
-          <div>
-            <label>Nome</label>
-            <input
-              type="text"
-              id="userName"
-              name="userName"
-              placeholder="Digite seu nome"
-              required="Text"
-              onChange={changeValues}
-              value={values.userName}
-              className="input--field"
-              onKeyDown={handleKeyDown}
-            />
+      </div>
+      <div className="form-demo">
+        <div className="flex justify-content-center">
+          <div className="card">
+            <form onSubmit={formik.handleSubmit} className="p-fluid">
+              <div>
+                <h1>Create your account!</h1>
+              </div>
+              <div className="field">
+                <span className="p-float-label">
+                  <InputText
+                    id="name"
+                    name="name"
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    autoFocus
+                    className={classNames({
+                      "p-invalid": isFormFieldValid("name"),
+                    })}
+                  />
+                  <label
+                    htmlFor="name"
+                    className={classNames({
+                      "p-error": isFormFieldValid("name"),
+                    })}
+                  >
+                    Name*
+                  </label>
+                </span>
+                {getFormErrorMessage("name")}
+              </div>
+              <div className="field">
+                <span className="p-float-label p-input-icon-right">
+                  <i className="pi pi-envelope" />
+                  <InputText
+                    id="email"
+                    name="email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    className={classNames({
+                      "p-invalid": isFormFieldValid("email"),
+                    })}
+                  />
+                  <label
+                    htmlFor="email"
+                    className={classNames({
+                      "p-error": isFormFieldValid("email"),
+                    })}
+                  >
+                    Email*
+                  </label>
+                </span>
+                {getFormErrorMessage("email")}
+              </div>
+              <div className="field">
+                <span className="p-float-label">
+                  <Password
+                    id="password"
+                    name="password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    toggleMask={true}
+                    feedback={true}
+                    className={classNames({
+                      "p-invalid": isFormFieldValid("password"),
+                    })}
+                  />
+                  <label
+                    className={classNames({
+                      "p-error": isFormFieldValid("password"),
+                    })}
+                  >
+                    Password*
+                  </label>
+                </span>
+                {getFormErrorMessage("password")}
+              </div>
+              <div className="field">
+                <span className="p-float-label">
+                  <Password
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    value={formik.values.confirmPassword}
+                    onChange={formik.handleChange}
+                    toggleMask={true}
+                    feedback={false}
+                    className={classNames({
+                      "p-invalid": isFormFieldValid("confirmPassword"),
+                    })}
+                  />
+                  <label
+                    className={classNames({
+                      "p-error": isFormFieldValid("confirmPassword"),
+                    })}
+                  >
+                    Confirm Password*
+                  </label>
+                </span>
+                {getFormErrorMessage("confirmPassword")}
+              </div>
+              {getFormErrorMessage("Successful Registered!")}
+              <div className="form--buttons">
+                <Button
+                  onClick={() => handleClickRegisterUser()}
+                  label="Register"
+                  className="p-button-raised p-button-rounded"
+                />
+              </div>
+              <div className="form--buttons">
+                <Button
+                  onClick={() => clearInputs()}
+                  type={"reset"}
+                  label="Cancel"
+                  className="p-button-raised p-button-rounded"
+                />
+              </div>
+            </form>
           </div>
-          <div>
-            <label>Email</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              placeholder="Digite seu e-mail para cadastro"
-              required="Text"
-              onChange={changeValues}
-              value={values.email}
-              className="input--field"
-              onKeyDown={handleKeyDown}
-            />
-          </div>
-          <div>
-            <label>Senha</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Digite sua senha para cadastro"
-              onChange={changeValues}
-              value={values.password}
-              className="input--field"
-              onKeyDown={handleKeyDown}
-            />
-          </div>
-          <div>
-            <label>Digite sua senha novamente</label>
-            <input
-              type="password"
-              id="passwordConfirmation"
-              name="passwordConfirmation"
-              placeholder="Cofirmação de senha"
-              onChange={changeValues}
-              value={values.passwordConfirmation}
-              className="input--field"
-              onKeyDown={handleKeyDown}
-            />
-          </div>
-
-          <div className="buttons">
-            <button className="register--button" type="button" onClick={() => handleClickRegisterUser()}>Cadastrar-se</button>
-            <button className="register--button" type="reset" onClick={() => clearInputs()}>Descartar</button>
-          </div>
-
-        </form>
-      </section>
+        </div>
+      </div>
     </div>
   );
 }

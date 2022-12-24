@@ -26,19 +26,26 @@ body {
 }
 
 .search--input {
+  border-radius: 10px;
   display: block;
   width: 60%;
   position: absolute;
   left: 20%;
   top: 33%;
-  padding: 8px;
+  padding: 10px;
   font-size: 15px;
+  background-color: rgb(29, 28, 28);
+  color: #fff;
+  border-color: #fff;
+}
+
+input:focus {
   outline: none;
 }
 
 .search--icon {
   position: absolute;
-  left: 77%;
+  margin-left: 26%;
   margin-top: 0.4%;
   padding: 15px;
   background-image: url(../../img/search_icon.svg);
@@ -46,7 +53,7 @@ body {
   background-position: center;
   border: none;
   cursor: pointer;
-  background-color: #fff;
+  background-color: rgb(29, 28, 28);
 }
 
 .custom--button {
@@ -63,10 +70,6 @@ body {
 
 .custom--button:hover {
   background-color: #8a2be2;
-}
-
-.input--field {
-  width: 90%;
 }
 
 .fast--search {

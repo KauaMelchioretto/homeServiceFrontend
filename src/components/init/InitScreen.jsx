@@ -6,6 +6,7 @@ import MenuBar from "../menubar/index.jsx";
 import * as JSURL from "jsurl";
 import { useSelector } from "react-redux";
 import { getUserName } from "../../services/registers/Registers";
+import { InputText } from "primereact/inputtext";
 
 export default function InitScreen() {
   const [values, setValues] = useState({});
@@ -78,7 +79,7 @@ export default function InitScreen() {
   {
     return (
       <div className="container">
-        <MenuBar></MenuBar>
+        <MenuBar />
 
         <div className="div--container">
           <h1 className="title">Home Service</h1>

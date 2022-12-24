@@ -13,7 +13,7 @@ import LoginPage from "./pages/LoginPage";
 import UserRegister from "./components/registers/UserRegister";
 import { AuthProvider } from "./containers/PrivateContainer";
 import RequireAuth from "./containers/RequireAuth";
-import { LoginScreen } from './components/singin/LoginTest.jsx';
+import { LoginScreen } from "./components/login/Login"
 
 function App() {
   return (
@@ -34,8 +34,7 @@ function App() {
                 }
               />
               <Route path="/servico" element={<ServiceScreen />} />
-              <Route path="/loginTest" element={<LoginScreen />} />
-              <Route path="/login" element={<LoginPage />} />
+              <Route path="/login" element={<LoginScreen />} />
               <Route path="/registroUsuario" element={<UserRegister />} />
             </Routes>
           </Router>

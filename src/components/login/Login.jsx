@@ -4,11 +4,8 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Password } from "primereact/password";
 import { NavLink } from "react-router-dom";
-import { Dialog } from "primereact/dialog";
-import { Divider } from "primereact/divider";
 import { classNames } from "primereact/utils";
 import MenuBar from "../menubar";
-import "./index.css";
 import { login } from "../../services/login";
 
 export const LoginScreen = ({ callback }) => {
@@ -29,7 +26,6 @@ export const LoginScreen = ({ callback }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
       email: "",
       password: "",
     },
@@ -68,34 +64,10 @@ export const LoginScreen = ({ callback }) => {
     );
   };
 
-  const dialogFooter = (
-    <div className="flex justify-content-center">
-      <Button
-        label="OK"
-        className="p-button-text"
-        autoFocus
-        onClick={() => setShowMessage(false)}
-      />
-    </div>
-  );
-  const passwordHeader = <h6>Pick a password</h6>;
-  const passwordFooter = (
-    <React.Fragment>
-      <Divider />
-      <p className="mt-2">Suggestions</p>
-      <ul className="pl-2 ml-2 mt-0" style={{ lineHeight: "1.5" }}>
-        <li>At least one lowercase</li>
-        <li>At least one uppercase</li>
-        <li>At least one numeric</li>
-        <li>Minimum 8 characters</li>
-      </ul>
-    </React.Fragment>
-  );
-
   return (
-    <div className="login--section">
+    <div className="form--section">
       <MenuBar />
-      <div className="header--container">
+      <div className="title--container">
         <h1>Home Service</h1>
       </div>
       <div className="form-demo">
@@ -103,7 +75,7 @@ export const LoginScreen = ({ callback }) => {
           <div className="card">
             <form onSubmit={formik.handleSubmit} className="p-fluid">
               <div>
-                <h2>Login</h2>
+                <h1>Login</h1>
               </div>
               <div className="field">
                 <span className="p-float-label p-input-icon-right">
@@ -135,15 +107,13 @@ export const LoginScreen = ({ callback }) => {
                     name="password"
                     value={formik.values.password}
                     onChange={formik.handleChange}
-                    toggleMask
+                    toggleMask={true}
+                    feedback={false}
                     className={classNames({
                       "p-invalid": isFormFieldValid("password"),
                     })}
-                    header={passwordHeader}
-                    footer={passwordFooter}
                   />
                   <label
-                    htmlFor="password"
                     className={classNames({
                       "p-error": isFormFieldValid("password"),
                     })}
@@ -159,9 +129,13 @@ export const LoginScreen = ({ callback }) => {
                 className="p-button-raised p-button-rounded"
               />
               <div className="elements">
-                <NavLink to="/">Esqueci a senha</NavLink>
+                <NavLink className="link" to="/">
+                  Esqueci minha senha
+                </NavLink>
                 <div>
-                  <NavLink to="/registroUsuario">Registrar-se</NavLink>
+                  <NavLink className="link" to="/registroUsuario">
+                    Registrar-se
+                  </NavLink>
                 </div>
               </div>
             </form>

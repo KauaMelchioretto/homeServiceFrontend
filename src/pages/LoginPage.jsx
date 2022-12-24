@@ -1,8 +1,9 @@
 import React from "react";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Singin from "../components/singin/Singin.jsx";
+import Singin from "../components/login/Singin";
 import { useAuth } from "../hooks/auth.js";
+import "../components/login/Login.css";
 
 export default function LoginPage() {
   const navigate = useNavigate();
