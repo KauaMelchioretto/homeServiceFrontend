@@ -44,7 +44,7 @@ export default function ServiceScreen() {
 });
 
   useEffect(async () => {
-    cookieToken = await httpAgent.get("/getcookie");
+    cookieToken = await axios.get("/getcookie");
     const data = JSON.stringify(cookieToken.data.token);
     if(cookieToken.data.token != undefined) {
     token = data.replace(/[{}"]/g, '');

@@ -104,7 +104,7 @@ export default function RegisterServiceScreen() {
   }, []);
 
   async function updateRegisteredServices() {
-    const cookieToken = await httpAgent.get("/getcookie");
+    const cookieToken = await axios.get("/getcookie");
     const result = await getRegisteredServices(cookieToken.data.token != undefined ? cookieToken.data.token : token);
     setListServices(result);
     setShowServices(true);

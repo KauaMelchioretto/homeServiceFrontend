@@ -32,7 +32,7 @@ export default function MenuBar() {
   //Realize login to stay session
   useEffect(async () => {
     if (auth.user == null) {
-      cookieToken = await httpAgent.get("/getcookie");
+      cookieToken = await axios.get("/getcookie");
       const data = JSON.stringify(cookieToken.data.token);
       if (cookieToken.data.token != undefined) {
         token = data.replace(/[{}"]/g, "");

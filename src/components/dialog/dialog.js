@@ -91,7 +91,7 @@ export default function FormDialog(props) {
   };
 
   const listingCard = async () => {
-    const cookieToken = await httpAgent.get("/getcookie");
+    const cookieToken = await axios.get("/getcookie");
     const resultServices = await getRegisteredServices(
       cookieToken.data.token != undefined ? cookieToken.data.token : token
     );

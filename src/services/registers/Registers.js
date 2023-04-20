@@ -10,7 +10,7 @@ var httpAgent = Axios.create({
 httpAgent.defaults.withCredentials = true;
 
 export async function getUserName(userToken) {
-  var userToken = await (await httpAgent.get("/getcookie")).data.token;
+  var userToken = await (await Axios.get("/getcookie")).data.token;
   if(userToken != undefined) {
     var username =
     await httpAgent.post("/getUserName", {
@@ -60,5 +60,3 @@ export async function getUserName(userToken) {
         password,
       }); window.alert("Cadastrado com sucesso!");
     }
-
-   
