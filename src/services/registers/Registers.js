@@ -44,18 +44,17 @@ export async function getUserName(userToken) {
 
     export async function verifyUserEmail(email) {
       const verify =
-      await httpAgent.post("/getEmailUsuario", {
+      await Axios.post("/getEmailUsuario", {
         email,
       });
-        if (verify.data.length === 0) {
+        if (verify.data.length === 0)
            return true;
-        }
          else
            return false;
     }
 
     export async function registerUser(userName, email, password) {
-      await httpAgent.post("/registroUsuario", {
+      await Axios.post("/registroUsuario", {
         userName,
         email,
         password,
