@@ -13,7 +13,7 @@ var httpAgent = Axios.create({
 httpAgent.defaults.withCredentials = true;
 
 export async function login(email, password) {
-    const data = await httpAgent.post("/login", {
+    const data = await Axios.post("/login", {
       email,
       password,
     });
