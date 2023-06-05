@@ -9,6 +9,10 @@ var httpAgent = Axios.create({
 });
 httpAgent.defaults.withCredentials = true;
 
+Axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
+
 export async function getUserName(userToken) {
   var userToken = await (await Axios.get("/getcookie")).data.token;
   if(userToken != undefined) {

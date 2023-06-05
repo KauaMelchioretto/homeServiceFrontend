@@ -28,9 +28,8 @@ export default function FormDialog(props) {
     description: props.description,
   });
   
-  axios.defaults.withCredentials = true;
-  var httpAgent = axios.create({
-    baseURL: process.env.REACT_APP_API_URL ,
+  axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
   });
 
   const handleChangeValues = (value) => {

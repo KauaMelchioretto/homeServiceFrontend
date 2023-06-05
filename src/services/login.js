@@ -12,6 +12,10 @@ var httpAgent = Axios.create({
 });
 httpAgent.defaults.withCredentials = true;
 
+Axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
+
 export async function login(email, password) {
     const data = await Axios.post("/login", {
       email,
