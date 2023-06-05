@@ -1,8 +1,8 @@
-import Axios from "axios";
+import axios from "axios";
 import { allActions } from "../redux/actions";
 import store from "../redux/store/index";
 
-var httpAgent = Axios.create({
+var httpAgent = axios.create({
   baseURL: process.env.REACT_APP_API_URL ,
   headers: {
     "Content-Type": "application/json",
@@ -12,7 +12,7 @@ var httpAgent = Axios.create({
 });
 httpAgent.defaults.withCredentials = true;
 
-Axios.create({
+var Axios = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 

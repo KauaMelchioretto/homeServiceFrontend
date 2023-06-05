@@ -19,8 +19,6 @@ export default function InitScreen() {
     }) => token
   );
   
-  console.log(process.env.REACT_APP_API_URL);
-  
   var httpAgent = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
   });

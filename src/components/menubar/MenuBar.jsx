@@ -11,6 +11,10 @@ var httpAgent = axios.create({
 
 httpAgent.defaults.withCredentials = true;
 
+axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
+
 export default function MenuBar() {
   const navigate = useNavigate();
   var token = useSelector(
