@@ -10,14 +10,9 @@ var httpAgent = axios.create({
   },
   withCredentials: true,
 });
-httpAgent.defaults.withCredentials = true;
-
-var Axios = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-});
 
 export async function login(email, password) {
-    const data = await Axios.post("/login", {
+    const data = await httpAgent.post("/login", {
       email,
       password,
     });

@@ -28,9 +28,11 @@ export default function FormDialog(props) {
     description: props.description,
   });
   
-  axios.create({
+  var httpAgent = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
   });
+
+  httpAgent.defaults.withCredentials = true;
 
   const handleChangeValues = (value) => {
     setEditValues((prevValue) => ({
@@ -90,7 +92,7 @@ export default function FormDialog(props) {
   };
 
   const listingCard = async () => {
-    const cookieToken = await axios.get("/getcookie");
+    const cookieToken = await httpAgent.get("/getcookie");
     const resultServices = await getRegisteredServices(
       cookieToken.data.token != undefined ? cookieToken.data.token : token
     );

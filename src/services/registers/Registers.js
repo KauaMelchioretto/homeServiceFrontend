@@ -10,12 +10,8 @@ var httpAgent = axios.create({
 
 httpAgent.defaults.withCredentials = true;
 
-var Axios = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-});
-
 export async function getUserName(userToken) {
-  var userToken = await (await Axios.get("/getcookie")).data.token;
+  var userToken = await (await httpAgent.get("/getcookie")).data.token;
   if (userToken != undefined) {
     var username = await httpAgent.post("/getUserName", {
       userToken,
@@ -60,7 +56,7 @@ export async function registerService(
 }
 
 export async function verifyUserEmail(email) {
-  const verify = await Axios.post("/getEmailUsuario", {
+  const verify = await httpAgent.post("/getEmailUsuario", {
     email,
   });
   if (verify.data.length === 0) return true;
@@ -68,7 +64,7 @@ export async function verifyUserEmail(email) {
 }
 
 export async function registerUser(userName, email, password) {
-  await Axios.post("/registroUsuario", {
+  await httpAgent.post("/registroUsuario", {
     userName,
     email,
     password,

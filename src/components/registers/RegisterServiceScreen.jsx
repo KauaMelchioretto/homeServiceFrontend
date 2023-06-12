@@ -34,10 +34,6 @@ export default function RegisterServiceScreen() {
 
   httpAgent.defaults.withCredentials = true;
 
-  var Axios = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
-
   const changeValues = (value) => {
     setValues((prevValue) => ({
       ...prevValue,
@@ -108,7 +104,7 @@ export default function RegisterServiceScreen() {
   }, []);
 
   async function updateRegisteredServices() {
-    const cookieToken = await Axios.get("/getcookie");
+    const cookieToken = await httpAgent.get("/getcookie");
     const result = await getRegisteredServices(cookieToken.data.token != undefined ? cookieToken.data.token : token);
     setListServices(result);
     setShowServices(true);

@@ -11,10 +11,6 @@ var httpAgent = axios.create({
 
 httpAgent.defaults.withCredentials = true;
 
-axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-});
-
 export default function MenuBar() {
   const navigate = useNavigate();
   var token = useSelector(
@@ -36,7 +32,7 @@ export default function MenuBar() {
   //Realize login to stay session
   useEffect(async () => {
     if (auth.user == null) {
-      cookieToken = await axios.get("/getcookie");
+      cookieToken = await httpAgent.get("/getcookie");
       const data = JSON.stringify(cookieToken.data.token);
       if (cookieToken.data.token != undefined) {
         token = data.replace(/[{}"]/g, "");

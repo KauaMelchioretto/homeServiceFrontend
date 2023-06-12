@@ -39,12 +39,14 @@ export default function ServiceScreen() {
     return true;
   };
 
-  var Axios = axios.create({
+  var httpAgent = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
   });
 
+  httpAgent.defaults.withCredentials = true;
+
   useEffect(async () => {
-    cookieToken = await Axios.get("/getcookie");
+    cookieToken = await httpAgent.get("/getcookie");
     const data = JSON.stringify(cookieToken.data.token);
     if(cookieToken.data.token != undefined) {
     token = data.replace(/[{}"]/g, '');
@@ -81,7 +83,7 @@ export default function ServiceScreen() {
   }, []);
 
   const updateAvaliationsComments = async() => {
-    Axios.post("/getAvaliations", {
+    httpAgent.post("/getAvaliations", {
       idService: details.id,
     }).then((response) => {
       setListAvaliations(response.data);
