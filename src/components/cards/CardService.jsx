@@ -14,9 +14,9 @@ export default function CardService(props) {
             <a
               className="wpp--number"
               target="_blank"
-              href={`https://wa.me/${props.numberTel}`}
+              href={`https://wa.me/${props.phoneNumber}`}
             >
-              <img src={WppIcon} alt="" width="25px" /> {props.numberTel}
+              <img src={WppIcon} alt="" width="25px" /> {props.phoneNumber}
             </a>
             <p>Descrição: {props.description}</p>
 

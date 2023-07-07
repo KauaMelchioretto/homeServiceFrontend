@@ -5,7 +5,6 @@ import MenuBar from "../menubar/MenuBar";
 import { registerService } from "../../services/registers/Registers";
 import { getRegisteredServices } from "../../services/servicesFunctions/services";
 import { useSelector } from "react-redux";
-import axios from "axios";
 
 export default function RegisterServiceScreen() {
   const token = useSelector(
@@ -24,15 +23,9 @@ export default function RegisterServiceScreen() {
     profession: "",
     city: "",
     city2: "",
-    numberTel: "",
+    phoneNumber: "",
     description: "",
   });
-
-  var httpAgent = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
-
-  httpAgent.defaults.withCredentials = true;
 
   const changeValues = (value) => {
     setValues((prevValue) => ({
@@ -43,21 +36,20 @@ export default function RegisterServiceScreen() {
 
   const handleClickRegisterService = async () => {
     if (validation(values)) {
-      const userToken = token;
       const name = values.name;
       const profession = values.profession;
       const city = values.city;
       const city2 = values.city2;
-      const numberTel = values.numberTel;
+      const phoneNumber = values.phoneNumber;
       const description = values.description;
 
       await registerService(
-        userToken,
+        token,
         name,
         profession,
         city,
         city2,
-        numberTel,
+        phoneNumber,
         description
       );
       clearInputs();
@@ -77,7 +69,7 @@ export default function RegisterServiceScreen() {
     if (values.city == "") {
       message += "Informe uma cidade!\n";
     }
-    if (values.numberTel == "") {
+    if (values.phoneNumber == "") {
       message += "Informe um número de telefone!\n";
     }
     if (message != "") {
@@ -94,7 +86,7 @@ export default function RegisterServiceScreen() {
       profession: "",
       city: "",
       city2: "",
-      numberTel: "",
+      phoneNumber: "",
       description: "",
     });
   };
@@ -104,8 +96,7 @@ export default function RegisterServiceScreen() {
   }, []);
 
   async function updateRegisteredServices() {
-    const cookieToken = await httpAgent.get("/getcookie");
-    const result = await getRegisteredServices(cookieToken.data.token != undefined ? cookieToken.data.token : token);
+    const result = await getRegisteredServices(token);
     setListServices(result);
     setShowServices(true);
   };
@@ -170,12 +161,12 @@ export default function RegisterServiceScreen() {
           <div className="box-register">
             <label>Número de telefone</label>
             <input
-              id="numberTel"
-              name="numberTel"
+              id="phoneNumber"
+              name="phoneNumber"
               placeholder="Digite o número de telefone"
               required="Text"
               onChange={changeValues}
-              value={values.numberTel}
+              value={values.phoneNumber}
               className="input--field"
             />
           </div>
@@ -222,12 +213,12 @@ export default function RegisterServiceScreen() {
                 key={values.id}
                 listCard={listServices}
                 setListCard={setListServices}
-                id={values.idservice}
+                id={values.id}
                 name={values.name}
                 profession={values.profession}
                 city={values.city}
                 city2={values.city2}
-                numberTel={values.numberTel}
+                phoneNumber={values.phone_number}
                 description={values.description}
               ></CardRegister>
             );

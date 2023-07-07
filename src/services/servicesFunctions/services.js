@@ -5,7 +5,7 @@ var httpAgent = axios.create({
 });
 httpAgent.defaults.withCredentials = true;
 
-export async function editService(id, name, profession, city, city2, numberTel, description) {
+export async function editService(id, name, profession, city, city2, phoneNumber, description) {
     const result =
     await httpAgent.put("/editService", {
         id,
@@ -13,7 +13,7 @@ export async function editService(id, name, profession, city, city2, numberTel, 
         profession,
         city,
         city2,
-        numberTel,
+        phoneNumber,
         description,
     }); return result;
 }

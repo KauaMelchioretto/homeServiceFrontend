@@ -11,6 +11,7 @@ export default function Singin({ callback }) {
     const email = values.email;
     const password = values.password;
     const token = await login(email, password);
+    localStorage.setItem('token', token);
     callback(token);
   }
 

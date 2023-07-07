@@ -11,24 +11,24 @@ var httpAgent = axios.create({
 httpAgent.defaults.withCredentials = true;
 
 export async function getUserName(userToken) {
-  var userToken = await (await httpAgent.get("/getcookie")).data.token;
   if (userToken != undefined) {
     var username = await httpAgent.post("/getUserName", {
       userToken,
     });
     return username.data;
+  } else {
+    return undefined;
   }
-  return undefined;
 }
 
 export async function registerAvaliation(
-  idService,
+  serviceId,
   userToken,
   comment,
   avaliation
 ) {
   await httpAgent.post("/registrarAvaliacao", {
-    idService,
+    serviceId,
     userToken,
     comment,
     avaliation,
@@ -41,7 +41,7 @@ export async function registerService(
   profession,
   city,
   city2,
-  numberTel,
+  phoneNumber,
   description
 ) {
   await httpAgent.post("/registrosDeServicos", {
@@ -50,7 +50,7 @@ export async function registerService(
     profession,
     city,
     city2,
-    numberTel,
+    phoneNumber,
     description,
   });
 }

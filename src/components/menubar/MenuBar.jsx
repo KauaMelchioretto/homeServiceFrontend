@@ -6,7 +6,7 @@ import axios from "axios";
 import "./MenuBar.css";
 
 var httpAgent = axios.create({
-  baseURL: process.env.REACT_APP_API_URL ,
+  baseURL: process.env.REACT_APP_API_URL
 });
 
 httpAgent.defaults.withCredentials = true;
@@ -21,10 +21,9 @@ export default function MenuBar() {
     }) => token
   );
   const auth = useAuth();
-  var cookieToken;
 
   const onLogout = async () => {
-    var res = httpAgent.get("/clearcookie");
+    localStorage.clear('token');
     auth.logout(token);
     navigate("/inicio");
   };
@@ -32,15 +31,13 @@ export default function MenuBar() {
   //Realize login to stay session
   useEffect(async () => {
     if (auth.user == null) {
-      cookieToken = await httpAgent.get("/getcookie");
-      const data = JSON.stringify(cookieToken.data.token);
-      if (cookieToken.data.token != undefined) {
-        token = data.replace(/[{}"]/g, "");
+      token = localStorage.getItem('token');
+      if (token != undefined) {
         auth.login(token);
       }
     }
   }, []);
-
+  
   const withoutAuthentication = (
     <ul>
       <li>

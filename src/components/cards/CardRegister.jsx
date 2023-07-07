@@ -20,7 +20,7 @@ export default function CardRegister(propsCard) {
         profession={propsCard.profession}
         city={propsCard.city}
         city2={propsCard.city2}
-        numberTel={propsCard.numberTel}
+        phoneNumber={propsCard.phoneNumber}
         description={propsCard.description}
         listCard={propsCard.listCard}
         setListCard={propsCard.setListCard}
@@ -30,8 +30,8 @@ export default function CardRegister(propsCard) {
         <p className="card--profession">Profissão: {propsCard.profession}</p>
         <p className="card--city">Cidade: {propsCard.city}</p>
         <p className="card--city">Cidade(secundária): {propsCard.city2}</p>
-        <p className="card--numberTel">
-          Número de telefone: {propsCard.numberTel}
+        <p className="card--phoneNumber">
+          Número de telefone: {propsCard.phoneNumber}
         </p>
         <p className="card--description">Descrição: {propsCard.description}</p>
       </div>

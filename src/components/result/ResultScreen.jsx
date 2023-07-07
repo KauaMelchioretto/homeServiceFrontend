@@ -23,13 +23,13 @@ export default function ResultScreen() {
         {Array.isArray(professional) &&
           professional.map((value) => (
             <CardResult
-              key={value.idservice}
-              id={value.idservice}
+              key={value.id}
+              id={value.id}
               name={value.name}
               profession={value.profession}
               city={value.city}
               city2={value.city2}
-              numberTel={value.numberTel}
+              phoneNumber={value.phone_number}
               description={value.description}
             ></CardResult>
           ))}

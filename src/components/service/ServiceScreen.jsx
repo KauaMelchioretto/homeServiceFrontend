@@ -19,7 +19,6 @@ export default function ServiceScreen() {
   const [details] = useQueryParam("detailsProfessional");
   const [listAvaliations, setListAvaliations] = useState();
   const auth = useAuth();
-  var cookieToken;
   var token = useSelector(({rootReducer: {login : {token}}}) => token);
 
   const changeAvaliations = (value) => {
@@ -45,21 +44,14 @@ export default function ServiceScreen() {
 
   httpAgent.defaults.withCredentials = true;
 
-  useEffect(async () => {
-    cookieToken = await httpAgent.get("/getcookie");
-    const data = JSON.stringify(cookieToken.data.token);
-    if(cookieToken.data.token != undefined) {
-    token = data.replace(/[{}"]/g, '');
-   }}, []); 
-
   const handleClickAvaliation = async () => {
     if(token != undefined && auth.user != null) {
       if(validation(value)){
       const userToken = token;
-      const idService = details.id;
+      const serviceId = details.id;
       const comment = avaliations.comment;
       const avaliation = value;
-      userToken != undefined ?  await registerAvaliation(idService, userToken, comment, avaliation) : window.alert("Faça login para registrar uma avaliação!");
+      userToken != undefined ? await registerAvaliation(serviceId, userToken, comment, avaliation) : window.alert("Faça login para registrar uma avaliação!");
       clearAvaliations();
       window.alert("Avaliado com sucesso!");
       updateAvaliationsComments();
@@ -68,14 +60,12 @@ export default function ServiceScreen() {
   }
 
   const clearAvaliations = () => {
-    //falta arrumar
     setAvaliations({
       comment: ""
-    }); setValue({
-      value: 0,
-    }); setStars ({
-      stars: 5,
     });
+
+    setValue(0);
+    setStars (5);
   }
 
   useEffect(() => {
@@ -84,7 +74,7 @@ export default function ServiceScreen() {
 
   const updateAvaliationsComments = async() => {
     httpAgent.post("/getAvaliations", {
-      idService: details.id,
+      serviceId: details.id,
     }).then((response) => {
       setListAvaliations(response.data);
     });
@@ -106,7 +96,7 @@ export default function ServiceScreen() {
           profession={details.profession}
           city={details.city}
           city2={details.city2}
-          numberTel={details.numberTel}
+          phoneNumber={details.phoneNumber}
           description={details.description}
         ></CardService>
       }
@@ -149,10 +139,10 @@ export default function ServiceScreen() {
             listAvaliations.map((values) => {
               return (
                 <CardAvaliation
-                  key={values.idavaliation}
+                  key={values.id}
+                  idavaliation={values.id}
                   listCard={listAvaliations}
                   setListAvaliations={setListAvaliations}
-                  idavaliation={values.idavaliation}
                   username={values.username}
                   comment={values.comment}
                   avaliation={values.avaliation}

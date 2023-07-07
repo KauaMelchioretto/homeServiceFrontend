@@ -24,7 +24,7 @@ export default function FormDialog(props) {
     profession: props.profession,
     city: props.city,
     city2: props.city2,
-    numberTel: props.numberTel,
+    phoneNumber: props.phoneNumber,
     description: props.description,
   });
   
@@ -40,6 +40,7 @@ export default function FormDialog(props) {
       [value.target.name]: value.target.value,
     }));
   };
+  
   const handleClose = () => {
     props.setOpen(false);
   };
@@ -55,7 +56,7 @@ export default function FormDialog(props) {
     if (editValues.city == "") {
       message += "Informe uma cidade!\n";
     }
-    if (editValues.numberTel == "") {
+    if (editValues.phoneNumber == "") {
       message += "Informe um número de telefone!\n";
     }
     if (message != "") {
@@ -67,12 +68,12 @@ export default function FormDialog(props) {
 
   const handleEditService = async () => {
     if (validation(editValues)) {
-      const id = editValues.id;
+      const id = props.id;
       const name = editValues.name;
       const profession = editValues.profession;
       const city = editValues.city;
       const city2 = editValues.city2;
-      const numberTel = editValues.numberTel;
+      const phoneNumber = editValues.phoneNumber;
       const description = editValues.description;
       const result = await editService(
         id,
@@ -80,9 +81,10 @@ export default function FormDialog(props) {
         profession,
         city,
         city2,
-        numberTel,
+        phoneNumber,
         description
       );
+      
       window.alert("Salvo com sucesso!");
       handleClose();
       if (result != null) {
@@ -92,10 +94,7 @@ export default function FormDialog(props) {
   };
 
   const listingCard = async () => {
-    const cookieToken = await httpAgent.get("/getcookie");
-    const resultServices = await getRegisteredServices(
-      cookieToken.data.token != undefined ? cookieToken.data.token : token
-    );
+    const resultServices = await getRegisteredServices(token);
     props.setListCard(resultServices);
   };
 
@@ -119,15 +118,6 @@ export default function FormDialog(props) {
       >
         <DialogTitle id="form-dialog">Editar Serviço</DialogTitle>
         <DialogContent>
-          <TextField
-            disabled
-            margin="dense"
-            id="id"
-            label="id"
-            defaultValue={props.id}
-            type="text"
-            fullWidth
-          />
           <TextField
             autoFocus
             margin="dense"
@@ -175,10 +165,10 @@ export default function FormDialog(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="numberTel"
-            name="numberTel"
+            id="phoneNumber"
+            name="phoneNumber"
             label="Número de telefone"
-            defaultValue={props.numberTel}
+            defaultValue={props.phoneNumber}
             type="text"
             onChange={handleChangeValues}
             fullWidth

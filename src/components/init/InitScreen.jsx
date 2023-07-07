@@ -65,7 +65,7 @@ export default function InitScreen() {
   };
 
   useEffect(async () => {
-    if (token != undefined) {
+    if (token != undefined && token != '' && token != null) {
       var username = await getUserName(token);
       setUser(username);
     } else setUser("");
