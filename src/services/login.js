@@ -18,8 +18,6 @@ export async function login(email, password) {
     });
     if (data.data.token != undefined) 
      return data.data.token;
-
-    else window.alert("Email ou senha incorretos!");
 }
 
 export async function logout({ token }) {
