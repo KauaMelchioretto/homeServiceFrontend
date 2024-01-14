@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./RegisterServiceScreen.css";
-import CardRegister from "../cards/CardRegister";
 import MenuBar from "../menubar/MenuBar";
 import { registerService } from "../../services/registers/Registers";
 import { getRegisteredServices } from "../../services/servicesFunctions/services";
 import { useSelector } from "react-redux";
+import FormDialog from "../dialog/dialog";
 
 export default function RegisterServiceScreen() {
   const token = useSelector(
@@ -14,7 +14,7 @@ export default function RegisterServiceScreen() {
       },
     }) => token
   );
-  
+
   const [listServices, setListServices] = useState();
   const [showServices, setShowServices] = useState(false);
   const [values, setValues] = useState({
@@ -26,6 +26,11 @@ export default function RegisterServiceScreen() {
     phoneNumber: "",
     description: "",
   });
+  const [open, setOpen] = useState(false);
+
+  const handleClickCard = () => {
+    setOpen(true);
+  };
 
   const changeValues = (value) => {
     setValues((prevValue) => ({
@@ -99,7 +104,7 @@ export default function RegisterServiceScreen() {
     const result = await getRegisteredServices(token);
     setListServices(result);
     setShowServices(true);
-  };
+  }
 
   return (
     <div>
@@ -205,24 +210,50 @@ export default function RegisterServiceScreen() {
         <h1>Seus serviços cadastrados</h1>
       </div>
 
-      <div className="service--card">
+      <div className="table-div">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Profissão</th>
+            <th>Cidade</th>
+            <th>Cidade (Secudária)</th>
+            <th>Número de telefone</th>
+            <th>Descrição</th>
+          </tr>
+        </thead>
         {typeof listServices !== "undefined" &&
           listServices.map((values) => {
             return (
-              <CardRegister
-                key={values.id}
-                listCard={listServices}
-                setListCard={setListServices}
-                id={values.id}
-                name={values.name}
-                profession={values.profession}
-                city={values.city}
-                city2={values.city2}
-                phoneNumber={values.phone_number}
-                description={values.description}
-              ></CardRegister>
+              <>
+                <FormDialog
+                  open={open}
+                  setOpen={setOpen}
+                  className="dialog"
+                  id={values.id}
+                  name={values.name}
+                  profession={values.profession}
+                  city={values.city}
+                  city2={values.city2}
+                  phoneNumber={values.phone_number}
+                  description={values.description}
+                  listCard={values.listCard}
+                  setListCard={values.setListCard}
+                />
+                  <tbody>
+                    <tr onClick={() => handleClickCard()}>
+                      <td>{values.name}</td>
+                      <td>{values.profession}</td>
+                      <td>{values.city}</td>
+                      <td>{values.city2}</td>
+                      <td>{values.phone_number}</td>
+                      <td>{values.description}</td>
+                    </tr>
+                  </tbody>
+              </>
             );
           })}
+          </table>
       </div>
     </div>
   );
