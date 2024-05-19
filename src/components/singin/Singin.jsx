@@ -19,9 +19,13 @@ export default function Singin({ callback }) {
     const email = values.email;
     const password = values.password;
     const token = await login(email, password);
-    localStorage.setItem("token", token);
-    callback(token);
-  };
+    if(token != undefined) {
+      localStorage.setItem('token', token);
+      callback(token);
+      } else {
+      window.alert("Email ou senha incorretos!");
+    }
+  }
 
   const changeValues = (value) => {
     setValues((prevValue) => ({
