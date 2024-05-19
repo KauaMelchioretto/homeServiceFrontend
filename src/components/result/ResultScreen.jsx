@@ -1,12 +1,13 @@
 import { React } from "react";
 import "./ResultScreen.css";
 import CardResult from "../cards/CardResult";
-import useQueryParam from "../../hooks/useQueryParam";
 import MenuBar from "../menubar/MenuBar";
+import { useLocation } from "react-router-dom";
 
 export default function ResultScreen() {
 
-  const [professional] = useQueryParam("professional");
+  const location = useLocation();
+  const data = location.state.data;
 
   return (
     <div>
@@ -20,8 +21,8 @@ export default function ResultScreen() {
       </div>
 
       <div className="result--information">
-        {Array.isArray(professional) &&
-          professional.map((value) => (
+        {Array.isArray(data) &&
+          data.map((value) => (
             <CardResult
               key={value.id}
               id={value.id}

@@ -1,7 +1,18 @@
 import React, { useState } from "react";
 import MenuBar from "../menubar/MenuBar";
 import "./Forms.css";
-import { registerUser, verifyUserEmail } from "../../services/registers/Registers";
+import {
+  registerUser,
+  verifyUserEmail,
+} from "../../services/registers/Registers";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 export default function UserRegister() {
   const [values, setValues] = useState({});
 
@@ -13,17 +24,19 @@ export default function UserRegister() {
   };
 
   const handleClickRegisterUser = async () => {
-    if(validation(values)){
-    const userName = values.userName;
-    const email = values.email;
-    const password = values.password;
-    const verify =  await verifyUserEmail(email);
-    verify == false ? window.alert("Email já cadastrado!") : await registerUser(userName, email, password); 
-     clearInputs();
+    if (validation(values)) {
+      const userName = values.userName;
+      const email = values.email;
+      const password = values.password;
+      const verify = await verifyUserEmail(email);
+      verify == false
+        ? window.alert("Email já cadastrado!")
+        : await registerUser(userName, email, password);
+      clearInputs();
     }
-  }
+  };
 
- const clearInputs = () => {
+  const clearInputs = () => {
     setValues({
       userName: "",
       email: "",
@@ -59,6 +72,8 @@ export default function UserRegister() {
     return true;
   };
 
+  const defaultTheme = createTheme();
+
   return (
     <div>
       <MenuBar />
@@ -66,70 +81,106 @@ export default function UserRegister() {
         <h1>Home Service</h1>
         <h2>Registre sua conta aqui!</h2>
       </header>
-      <section className="userForm--section">
-        <form>
-          <div>
-            <label>Nome</label>
-            <input
-              type="text"
-              id="userName"
-              name="userName"
-              placeholder="Digite seu nome"
-              required="Text"
-              onChange={changeValues}
-              value={values.userName}
-              className="input--field"
-              onKeyDown={handleKeyDown}
-            />
-          </div>
-          <div>
-            <label>Email</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              placeholder="Digite seu e-mail para cadastro"
-              required="Text"
-              onChange={changeValues}
-              value={values.email}
-              className="input--field"
-              onKeyDown={handleKeyDown}
-            />
-          </div>
-          <div>
-            <label>Senha</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Digite sua senha para cadastro"
-              onChange={changeValues}
-              value={values.password}
-              className="input--field"
-              onKeyDown={handleKeyDown}
-            />
-          </div>
-          <div>
-            <label>Digite sua senha novamente</label>
-            <input
-              type="password"
-              id="passwordConfirmation"
-              name="passwordConfirmation"
-              placeholder="Cofirmação de senha"
-              onChange={changeValues}
-              value={values.passwordConfirmation}
-              className="input--field"
-              onKeyDown={handleKeyDown}
-            />
-          </div>
+      <ThemeProvider theme={defaultTheme}>
+        <Container component="main" maxWidth="sm">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Box component="form" noValidate sx={{ mt: 1 }}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required="Text"
+                fullWidth
+                autoComplete="userName"
+                autoFocus
+                label="Nome"
+                type="text"
+                id="userName"
+                name="userName"
+                placeholder="Digite seu nome"
+                onChange={changeValues}
+                value={values.userName}
+                onKeyDown={handleKeyDown}
+              />
+              <TextField
+                fullWidth
+                autoComplete="email"
+                label="E-mail"
+                margin="normal"
+                variant="outlined"
+                type="text"
+                id="email"
+                name="email"
+                placeholder="Digite seu e-mail para cadastro"
+                required="Text"
+                onChange={changeValues}
+                value={values.email}
+                onKeyDown={handleKeyDown}
+              />
+              <TextField
+                label="Senha"
+                margin="normal"
+                fullWidth
+                required
+                variant="outlined"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Digite sua senha para cadastro"
+                onChange={changeValues}
+                value={values.password}
+                onKeyDown={handleKeyDown}
+              />
+              <TextField
+                variant="outlined"
+                label="Confirmação de senha"
+                fullWidth
+                margin="normal"
+                type="password"
+                id="passwordConfirmation"
+                name="passwordConfirmation"
+                placeholder="Cofirmação de senha"
+                onChange={changeValues}
+                value={values.passwordConfirmation}
+                className="user-register-input"
+                onKeyDown={handleKeyDown}
+              />
 
-          <div className="buttons">
-            <button className="register--button" type="button" onClick={() => handleClickRegisterUser()}>Cadastrar-se</button>
-            <button className="register--button" type="reset" onClick={() => clearInputs()}>Descartar</button>
-          </div>
+              <Grid container gap={2}>
+                <Grid item sm>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 3 }}
+                    type="reset"
+                    onClick={() => clearInputs()}
+                  >
+                    Descartar
+                  </Button>
+                </Grid>
 
-        </form>
-      </section>
+                <Grid item sm>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 3 }}
+                  type="button"
+                  onClick={() => handleClickRegisterUser()}
+                >
+                  Cadastrar-se
+                </Button>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+        </Container>
+      </ThemeProvider>
     </div>
   );
 }

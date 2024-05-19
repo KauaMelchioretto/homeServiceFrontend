@@ -18,9 +18,14 @@ export default function InitScreen() {
       },
     }) => token
   );
-  
+
   var httpAgent = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
+
+    headers : { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+     }
   });
 
   httpAgent.defaults.withCredentials = true;
@@ -33,29 +38,43 @@ export default function InitScreen() {
   };
 
   const SearchServices = () => {
-    httpAgent.post("/resultados", {
-      information: values.information,
-    }).then((response) => {
-      const data = JSURL.stringify(response.data);
-      if (data == "~'") {
-        window.alert("Insira uma informação para pesquisa!");
-      } else if (data == "~(~)") {
-        window.alert("Sem resultados!");
-      } else {
-        navigate(`/resultados?professional=${data ?? ""}`);
-      }
-    });
+    httpAgent
+      .post("/resultados", {
+        information: values.information,
+      })
+      .then((response) => {
+        const data = response.data;
+        if (!data) {
+          window.alert("Insira uma informação para pesquisa!");
+        } else if (data.length <= 0) {
+          window.alert("Sem resultados!");
+        } else {
+          navigate(`/resultados`, {
+            state: {
+              data,
+            },
+          });
+        }
+      });
   };
 
   const SearchServicesVoid = (param) => {
-    httpAgent.post("/resultados", {
-      information: param,
-    }).then((response) => {
-      const data = JSURL.stringify(response.data);
-      data != "~(~)"
-        ? navigate(`/resultados?professional=${data ?? ""}`)
-        : window.alert("Sem resultados!");
-    });
+    httpAgent
+      .post("/resultados", {
+        information: param,
+      })
+      .then((response) => {
+        const data = response.data;
+        if (data.length > 0) {
+          navigate(`/resultados`, {
+            state: {
+              data,
+            },
+          });
+        } else {
+          window.alert("Sem resultados!");
+        }
+      });
   };
 
   const handleKeyDown = (e) => {
@@ -65,7 +84,7 @@ export default function InitScreen() {
   };
 
   useEffect(async () => {
-    if (token != undefined && token != '' && token != null) {
+    if (token != undefined && token != "" && token != null) {
       var username = await getUserName(token);
       setUser(username);
     } else setUser("");
