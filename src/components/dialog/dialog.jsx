@@ -5,7 +5,6 @@ import { Dialog } from "@material-ui/core";
 import { DialogActions } from "@material-ui/core";
 import { DialogContent } from "@material-ui/core";
 import { DialogTitle } from "@material-ui/core";
-import "./dialog.css";
 import {
   deleteAvaliationService,
   deleteService,
@@ -95,7 +94,7 @@ export default function FormDialog(props) {
 
   const listingCard = async () => {
     const resultServices = await getRegisteredServices(token);
-    props.setListCard(resultServices);
+    props.setListServices(resultServices);
   };
 
   const handleDeleteService = async () => {

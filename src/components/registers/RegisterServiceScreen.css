@@ -17,41 +17,6 @@
   position: relative;
 }
 
-form {
-  background-color: white;
-  border-radius: 20px;
-  padding: 60px;
-  font-family: Arial;
-  color: black;
-  position: absolute;
-  margin-bottom: 20px;
-  width: 50%;
-}
-
-form div {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-}
-
-textarea {
-  max-width: 600px;
-  max-height: max-content;
-}
-
-form input,
-form textarea {
-  outline: unset;
-  padding: 20px;
-  width: 600px;
-  border: 1px solid rgb(189, 189, 189);
-  border-radius: 10px;
-}
-
-form input:focus,
-form textarea:focus {
-  background-color: #c79cf0;
-}
 
 .buttons {
   flex-wrap: nowrap;

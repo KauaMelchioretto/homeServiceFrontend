@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import MenuBar from "../menubar/MenuBar";
-import { NavLink, useNavigate } from "react-router-dom";
-import { login } from "../../services/login"
+import { login } from "../../services/login";
 import "../registers/Forms.css";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export default function Singin({ callback }) {
   const [values, setValues] = useState({});
@@ -11,9 +19,9 @@ export default function Singin({ callback }) {
     const email = values.email;
     const password = values.password;
     const token = await login(email, password);
-    localStorage.setItem('token', token);
+    localStorage.setItem("token", token);
     callback(token);
-  }
+  };
 
   const changeValues = (value) => {
     setValues((prevValue) => ({
@@ -28,18 +36,34 @@ export default function Singin({ callback }) {
     }
   };
 
+  const defaultTheme = createTheme();
+
   return (
-    <div className="container">
+    <ThemeProvider theme={defaultTheme}>
       <MenuBar />
       <header className="header--container">
         <h1>Home Serivce</h1>
-        <h2>Login</h2>
       </header>
-      <section className="userForm--section">
-        <form>
-          <label htmlFor="email">E-mail</label>
-          <div>
-            <input
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography component="h1" variant="h5">
+            Login
+          </Typography>
+          <Box component="form" noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              fullWidth
+              label="E-mail"
+              autoComplete="email"
+              autoFocus
               type="text"
               id="email"
               name="email"
@@ -47,12 +71,13 @@ export default function Singin({ callback }) {
               required="Text"
               onChange={changeValues}
               onKeyDown={handleKeyDown}
-              className="input--field"
             />
-          </div>
-          <div>
-            <label htmlFor="password">Senha</label>
-            <input
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              autoComplete="current-password"
+              label="Senha"
               type="password"
               id="password"
               name="password"
@@ -61,19 +86,30 @@ export default function Singin({ callback }) {
               onKeyDown={handleKeyDown}
               className="input--field"
             />
-          </div>
-          <NavLink to="/registroUsuario">Registrar-se</NavLink>
-          <div className="buttons">
-            <button
-              className="custom--button"
+            <Button
               type="button"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
               onClick={() => handleClickLogin()}
             >
               Login
-            </button>
-          </div>
-        </form>
-      </section>
-    </div>
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Esqueci minha senha
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="/registroUsuario" variant="body2">
+                 {"Registrar-se"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
