@@ -239,57 +239,63 @@ export default function RegisterServiceScreen() {
             </Box>
           </Box>
         </Container>
+
+        <div className="table-div">
+          <Box
+            sx={{
+              flexDirection: "column",
+              alignItems: "center",
+              textAlign: "center",
+            }}
+          >
+            <h1>Seus serviços cadastrados</h1>
+          </Box>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Profissão</th>
+                <th>Cidade</th>
+                <th>Cidade (Secudária)</th>
+                <th>Número de telefone</th>
+                <th>Descrição</th>
+              </tr>
+            </thead>
+            {typeof listServices !== "undefined" &&
+              listServices.map((values) => {
+                return (
+                  <>
+                    <FormDialog
+                      open={open}
+                      setOpen={setOpen}
+                      className="dialog"
+                      id={values.id}
+                      name={values.name}
+                      profession={values.profession}
+                      city={values.city}
+                      city2={values.city2}
+                      phoneNumber={values.phone_number}
+                      description={values.description}
+                      listCard={values.listCard}
+                      setListServices={setListServices}
+                    />
+                    <tbody>
+                      <tr onClick={() => handleClickCard()}>
+                        <td>{values.name}</td>
+                        <td>{values.profession}</td>
+                        <td>{values.city}</td>
+                        <td>{values.city2}</td>
+                        <td>{values.phone_number}</td>
+                        <td>{values.description}</td>
+                      </tr>
+                    </tbody>
+                  </>
+                );
+              })}
+          </table>
+        </div>
       </ThemeProvider>
-
-      <div className="services--title">
-        <h1>Seus serviços cadastrados</h1>
-      </div>
-
-      <div className="table-div">
-        <table>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Profissão</th>
-              <th>Cidade</th>
-              <th>Cidade (Secudária)</th>
-              <th>Número de telefone</th>
-              <th>Descrição</th>
-            </tr>
-          </thead>
-          {typeof listServices !== "undefined" &&
-            listServices.map((values) => {
-              return (
-                <>
-                  <FormDialog
-                    open={open}
-                    setOpen={setOpen}
-                    className="dialog"
-                    id={values.id}
-                    name={values.name}
-                    profession={values.profession}
-                    city={values.city}
-                    city2={values.city2}
-                    phoneNumber={values.phone_number}
-                    description={values.description}
-                    listCard={values.listCard}
-                    setListServices={setListServices}
-                  />
-                  <tbody>
-                    <tr onClick={() => handleClickCard()}>
-                      <td>{values.name}</td>
-                      <td>{values.profession}</td>
-                      <td>{values.city}</td>
-                      <td>{values.city2}</td>
-                      <td>{values.phone_number}</td>
-                      <td>{values.description}</td>
-                    </tr>
-                  </tbody>
-                </>
-              );
-            })}
-        </table>
-      </div>
     </div>
   );
 }
