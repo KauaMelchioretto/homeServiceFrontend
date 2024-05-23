@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import "../result/ResultScreen.css";
-import * as JSURL from "jsurl";
 import { useNavigate } from "react-router-dom";
 import "./CardResult.css"
 
 export default function CardResult(props) {
   const navigate = useNavigate();
   const seeMore = () => {
-    const data = JSURL.stringify(props);
-    navigate(`/servico?detailsProfessional=${data ?? ""}`);
+    const data = props;
+    navigate(`/servico`, {
+      state: {
+        data,
+      },
+    });
 }
 
   { 
